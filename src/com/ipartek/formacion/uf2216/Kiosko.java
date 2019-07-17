@@ -39,7 +39,6 @@ public class Kiosko implements Leible {
 		do {
 
 			rev = new Revistas();
-
 			menu();
 
 			switch (optionSelected) {
@@ -142,41 +141,59 @@ public class Kiosko implements Leible {
 			rev.setPages(nPages);
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
-
-		} finally {
-			System.out.println("Invalid option");
+			respuesta = true;
 			askPages();
+
 		}
 	}
 
 	// En este método pedimos el titulo. Lanzará una excepcion si los datos no son
 	// validos
 	private static void askIsDigital() throws Exception {
-		System.out.println("Please, tell me the format (d = digital, p = paper) No matters Uppercase or Lowercase");
+
 		try {
+			boolean scformato2;
+			System.out.println("Introduce format(p=paper, d=digital)");
+			String scformato = sc.nextLine();
 
-			format = sc.nextLine().toLowerCase().charAt(0);
+			if ("d".equals(scformato)) {
+				scformato2 = true;
+				rev.setisDigital(scformato2);
+			} else if ("p".equals(scformato)) {
+				scformato2 = false;
+				rev.setisDigital(scformato2);
 
-			switch (format) {
-			case ES_DIGITAL:
-				rev.setisFormat(true);
-				break;
-
-			case ES_PAPEL:
-				rev.setisFormat(false);
-				break;
-
-			default:
-				askIsDigital();
-				break;
 			}
 
+			System.out.println("el formato es" + scformato);
+			respuesta = false;
+
 		} catch (Exception e) {
-			e.printStackTrace();
-			askIsDigital();
+			System.out.println("******ERROR******el formato *NO* es correcto");
+			System.out.println(e.getMessage());
+			respuesta = true;
 		}
 
-	}
+		/*
+		 * try {
+		 * 
+		 * 
+		 * 
+		 * 
+		 * format = sc.nextLine().toLowerCase().charAt(0);
+		 * 
+		 * switch (format) { case ES_DIGITAL:
+		 * System.out.println("el formato antes de ponerlo a true es:" +
+		 * rev.isDigital()); boolean scformato2=true; rev.setisDigital(scformato2);
+		 * System.out.println("el formato es:" + rev.isDigital()); break;
+		 * 
+		 * case ES_PAPEL: rev.setisDigital(false); break;
+		 * 
+		 * default: askIsDigital(); break; }
+		 * 
+		 * } catch (Exception e) { e.printStackTrace(); askIsDigital(); }
+		 * 
+		 */}
 
 	// En este metodo pedimos si se quiere guardar la revista creada en un archivo
 	// de texto
@@ -211,7 +228,7 @@ public class Kiosko implements Leible {
 		Collections.sort(listMagazine);
 
 		for (int i = 0; i < listMagazine.size(); i++) {
-			System.out.println(listMagazine.toString());
+			System.out.println(listMagazine.get(i).toString());
 		}
 
 	}

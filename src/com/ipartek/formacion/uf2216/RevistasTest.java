@@ -10,6 +10,8 @@ import org.junit.jupiter.api.Test;
 
 class RevistasTest {
 
+	Revistas revista;
+
 	@BeforeAll
 	static void setUpBeforeClass() throws Exception {
 	}
@@ -20,70 +22,106 @@ class RevistasTest {
 
 	@BeforeEach
 	void setUp() throws Exception {
+		revista = new Revistas();
 	}
 
 	@AfterEach
 	void tearDown() throws Exception {
+		revista = null;
 	}
+
+
+
+
+
+	
 
 	@Test
-	void testRevistas() {
-		fail("Not yet implemented");
+	void testSetTitle() throws Exception {
+		
+		revista.setTitle("Buenosdias");
+		assertEquals("Buenosdias", revista.getTitle());
+		
+		try {
+			revista.setTitle("bu");
+			fail("Titulo demasiado corto");
+
+		} catch (Exception e) {
+			assertTrue(true);
+		}
+		
+		
+		
+		
 	}
+
+
 
 	@Test
-	void testRevistasStringStringIntBoolean() {
-		fail("Not yet implemented");
+	void testSetIsbn() throws Exception {
+		
+		revista.setIsbn("0987654321");
+		assertEquals("0987654321", revista.getIsbn());
+		
+		
+		try {
+			revista.setIsbn("098765432");
+			fail("No llega a los 10 caracteres permitidos");
+		} catch (Exception e) {
+			assertTrue(true);
+		}
+		
+		
+		try {
+			revista.setIsbn("09876543210");
+			fail("Supera los 10 caracteres permitidos");
+		} catch (Exception e) {
+			assertTrue(true);
+		}
+		
+		
 	}
+
+
 
 	@Test
-	void testGetTitle() {
-		fail("Not yet implemented");
-	}
+	void testSetPages() throws Exception{
+		
+		revista.setPages(1);
+		assertEquals(1, revista.getPages());
 
-	@Test
-	void testSetTitle() {
-		fail("Not yet implemented");
-	}
+		try {
+			revista.setPages(0);
+			fail("Minimo una página");
+		} catch (Exception e) {
+			assertTrue(true);
+		}
+		
+		try {
+			revista.setPages(-5);
+			fail("No puede tener menos de 1 página");
+		} catch (Exception e) {
+			assertTrue(true);
+		}
 
-	@Test
-	void testGetIsbn() {
-		fail("Not yet implemented");
 	}
-
-	@Test
-	void testSetIsbn() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	void testGetPages() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	void testSetPages() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	void testIsDigital() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	void testSetisFormat() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	void testToString() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	void testCompareTo() {
-		fail("Not yet implemented");
-	}
-
 }
+
+/*
+	@Test
+	void testSetisDigital() throws Exception {
+		
+		revista.setisDigital('d');
+		assertTrue(revista.isDigital());
+
+		revista.setisDigital('p');
+		assertFalse(revista.isDigital());
+
+		try {
+			revista.setisDigital('b');
+			fail("Formato no válido");
+		} catch (Exception e) {
+			assertTrue(true);
+		}
+	}
+*/
